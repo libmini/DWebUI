@@ -1,12 +1,11 @@
-# VideoSDK
+# WebUI
 
-A C++ SDK for real-time video encoding and decoding.
+A C++ WebUI library
 
 ## Dependencies
 Dependencies are included in the `3rdparty` directory:
-- libswscale
-- libavcodec
-- x264
+- libwebui
+
 
 ## Preview
 ![Preview](https://raw.githubusercontent.com/libmini/DWebUI/refs/heads/main/Preview.png)
@@ -16,7 +15,7 @@ Dependencies are included in the `3rdparty` directory:
 2. Create build directory: `mkdir build && cd build`
 3. Run CMake: `cmake ..`
 4. Build: `make`
-5. Run example: `./bin/example`
+5. Run example: `./bin/DWebUI`
 
 ## Usage
-See `example/main.cpp` for a usage example.
+See `src/main.cpp` for a usage example.
