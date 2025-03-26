@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebUI 示例</title>
+    <script src="/webui.js"></script>
+    <style>
+        body {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            font-family: 'Segoe UI', 'PingFang SC', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(90deg, #0078d4, #00c4cc);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s, background 0.3s;
+            margin: 5px 0;
+            width: 100%;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #005ba1, #009faf);
+            transform: translateY(-2px);
+        }
+
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            color: #555;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #0078d4;
+            outline: none;
+        }
+
+        p {
+            color: #666;
+            margin: 20px 0 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .input-group label {
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>WebUI 示例</h1>
+        <h4>JS调用CPP示例</h4>
+        <button onclick="cpp_function_string('Hello', 'World');">JS 调用 C++ 多字符串参数</button>
+        <button onclick="cpp_function_integer(123, 456, 789);">JS 调用 C++ 多整数参数</button>
+        <button onclick="cpp_function_boolean(true, false);">JS 调用 C++ 布尔参数</button>
+        <button onclick="Calc();">JS 调用 C++ 带返回值的函数，并显示返回值</button>
+        <div class="input-group">
+            <label>输入值(2)倍:</label>
+            <input type="text" id="InputValue" value="2">
+            <label>结果值:</label>
+            <input type="text" id="OnputValue" readonly>
+        </div>
+        <div id="response">等待中...</div>
+        <h4>CPP调用JS示例</h4>
+        <h1 id="count">0</h1>
+        <br>
+        <button OnClick="my_function_count();">Manual Count</button>
+        <br>
+        <button OnClick="AutoTest();">Auto Count (Every 10ms)</button>
+        <br>
+        <h4>页面切换示例</h4>
+        <a href="/second.html">通过A标签切换页面</a>
+        <button id="switch_to_second_page">通过页面切换打开</button>
+        <button id="show_second_window">通过打开新窗口打开</button>
+
+    </div>
+    <script>
+        function Calc() {
+            const Input = document.getElementById('InputValue');
+            const Output = document.getElementById('OnputValue');
+            cpp_function_with_response(Input.value, 2).then((response) => {
+                Output.value = response;
+            });
+        }
+
+        let count = 0;
+        function GetCount() {
+            return count;
+        }
+        function SetCount(number) {
+            document.getElementById('count').innerHTML = number;
+            count = number;
+        }
+        function AutoTest(number) {
+            setInterval(function () {
+                my_function_count();
+            }, 10);
+        }
+    </script>
+</body>
+
+</html>
