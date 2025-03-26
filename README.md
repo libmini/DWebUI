@@ -8,6 +8,9 @@ Dependencies are included in the `3rdparty` directory:
 - libavcodec
 - x264
 
+## Preview
+![Preview](https://raw.githubusercontent.com/libmini/DWebUI/refs/heads/main/Preview.png)
+
 ## Build Instructions
 1. Ensure `3rdparty` contains the required libraries and headers.
 2. Create build directory: `mkdir build && cd build`
